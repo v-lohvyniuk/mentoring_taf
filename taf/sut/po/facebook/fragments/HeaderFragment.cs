@@ -14,9 +14,13 @@ namespace mentoring_taf.taf.po.facebook.fragments
         [FindsBy(How = How.XPath, Using = "//a[contains(@title, 'Profile')]")]
         private IWebElement myProfileButton;
 
+        [FindsBy(How = How.XPath, Using = "//input[@placeholder='Search' and @name='q']")]
+        public IWebElement searchInput { get; set; }
+
         public IWebElement GetMyProfileButton()
         {
             return myProfileButton;
         }
+
     }
 }

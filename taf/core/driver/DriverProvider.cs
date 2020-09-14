@@ -3,6 +3,7 @@ using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
@@ -11,32 +12,43 @@ namespace mentoring_taf.taf.core.driver
     class DriverProvider
     {
 
-        private static IWebDriver driver;
+        private static ThreadLocal<IWebDriver> driverPool = new ThreadLocal<IWebDriver>();
+
+        static DriverProvider()
+        {
+                new DriverManager().SetUpDriver(new ChromeConfig());
+
+        }
 
         public static IWebDriver GetDriver()
         {
-            if (driver == null)
+            if (driverPool.Value == null)
             {
-                new DriverManager().SetUpDriver(new ChromeConfig());
-
-                ChromeOptions options = new ChromeOptions();
-                options.AddArguments("--disable-extensions"); // to disable extension
-                options.AddArguments("--disable-notifications"); // to disable notification
-                options.AddArguments("--disable-application-cache");
-                driver = new ChromeDriver(options);
-                driver.Manage().Window.Maximize();
-                driver.Manage().Timeouts().ImplicitWait = new TimeSpan(30);
+                driverPool.Value = new ChromeDriver(GetDefaultChromeOptions());
+                
+                driverPool.Value.Manage().Window.Maximize();
+                driverPool.Value.Manage().Timeouts().ImplicitWait = new TimeSpan(0, 0, DriverUtils.DEFAULT_IMPLICIT_WAIT_SEC);
             }
-            return driver;
+            return driverPool.Value;
         }
 
         public static void EndDriverSession() 
         {
-            if (driver != null)
+            if (driverPool.Value != null)
             {
-                driver.Quit();
-                driver = null;
+                driverPool.Value.Quit();
+                driverPool.Value = null;
             }
+        }
+
+        private static ChromeOptions GetDefaultChromeOptions()
+        {
+            ChromeOptions options = new ChromeOptions();
+            options.AddArguments("--disable-extensions"); // to disable extension
+            options.AddArguments("--disable-notifications"); // to disable notification
+            options.AddArguments("--disable-application-cache");
+
+            return options;
         }
     }
 }

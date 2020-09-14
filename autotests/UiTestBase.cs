@@ -6,6 +6,8 @@ using System.Text;
 
 namespace mentoring_taf.autotests
 {
+    [TestFixture]
+    [Parallelizable(ParallelScope.All)]
     public class UiTestBase
     {
         [TearDown]

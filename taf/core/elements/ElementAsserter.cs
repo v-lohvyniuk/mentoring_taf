@@ -1,6 +1,7 @@
-﻿using NUnit.Framework;
-using NUnit.Framework.Constraints;
+﻿using mentoring_taf.taf.core.driver;
+using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using System;
 
 namespace mentoring_taf.taf.core.elements
@@ -8,6 +9,7 @@ namespace mentoring_taf.taf.core.elements
     public class ElementAsserter
     {
         private readonly IWebElement element;
+        private static readonly TimeSpan DEFAULT_VISIBILITY_TIMEOUT = new TimeSpan(0, 0, 10);
 
         public ElementAsserter(IWebElement element)
         {
@@ -21,17 +23,27 @@ namespace mentoring_taf.taf.core.elements
 
         public ElementAsserter HasVisibility(bool shouldBeVisible)
         {
-            bool actual;
+            DriverUtils.TurnOffImplicitWait();
+
             try
             {
-                actual = element.Displayed;
+                WebDriverWait wait = new WebDriverWait(DriverProvider.GetDriver(), DEFAULT_VISIBILITY_TIMEOUT);
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.Until(driver => element.Displayed == shouldBeVisible);
+
             }
-            catch (Exception e)
+            catch (WebDriverTimeoutException e)
             {
-                actual = false;
+                if (shouldBeVisible)
+                {
+                    Assert.Fail("Element should have condition [visible]=" + shouldBeVisible + "\n" + e);
+                }
+            }
+            finally
+            {
+                DriverUtils.TurnOnImplicitWait();
             }
 
-            Assert.AreEqual(shouldBeVisible, actual, "Element should have condition [visible]=" + shouldBeVisible);
             return this;
         }
 
@@ -40,6 +52,16 @@ namespace mentoring_taf.taf.core.elements
             String actual = element.Text.ToLower();
             Assert.IsTrue(expectedText.ToLower().Contains(actual), "Element does not contain text (ignoring case):" + expectedText);
 
+            return this;
+        }
+
+        public ElementAsserter AttributeContains(String attrName, String attrContainingValue)
+        {
+            String actual = element.GetAttribute(attrName);
+
+            Assert.IsTrue(actual.ToLower().Contains(attrContainingValue),
+                "Attribute " + attrName + " should contain value " + attrContainingValue);
+            
             return this;
         }
 
