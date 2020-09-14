@@ -12,8 +12,8 @@ namespace mentoring_taf.taf.actions
 
         public void LogIn(User user)
         {
-            loginPage.FillEmail(user.GetLogin());
-            loginPage.FillPassword(user.GetPassword());
+            loginPage.FillEmail(user.Login);
+            loginPage.FillPassword(user.Password);
             loginPage.SubmitLoginForm();
         }
     }

@@ -1,4 +1,6 @@
 using mentoring_taf.taf.actions;
+using mentoring_taf.taf.core.pool;
+using mentoring_taf.taf.core.readers;
 using mentoring_taf.taf.sut.actions;
 using mentoring_taf.taf.sut.asserts;
 using mentoring_taf.taf.sut.models;
@@ -13,7 +15,7 @@ namespace mentoring_taf.autotests
         [Test]
         public void SearchAccountByUserName_PositiveTestCase()
         {
-            User user = new User("hmq49033@eoopy.com", "Qwerty123456", "Volodymyr", "Khomyshak");
+            User user = UserPool.getOne();
             NavigationUtils.GoToFacebookLoginPage();
             new LoginAction().LogIn(user);
             new SearchAction().Search("volodymyr lohvyniuk");

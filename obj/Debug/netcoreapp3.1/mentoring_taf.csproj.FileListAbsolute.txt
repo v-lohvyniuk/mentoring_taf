@@ -101,3 +101,4 @@ C:\Users\volod\source\repos\mentoring_taf\bin\Debug\netcoreapp3.1\WebDriver.Supp
 C:\Users\volod\source\repos\mentoring_taf\bin\Debug\netcoreapp3.1\SeleniumExtras.PageObjects.dll
 C:\Users\volod\source\repos\mentoring_taf\bin\Debug\netcoreapp3.1\SeleniumExtras.WaitHelpers.dll
 C:\Users\volod\source\repos\mentoring_taf\obj\Debug\netcoreapp3.1\mentoring_taf.csproj.CoreCompileInputs.cache
+C:\Users\volod\source\repos\mentoring_taf\bin\Debug\netcoreapp3.1\CsvHelper.dll
