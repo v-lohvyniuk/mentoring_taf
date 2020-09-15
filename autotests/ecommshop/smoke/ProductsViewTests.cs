@@ -16,7 +16,7 @@ namespace mentoring_taf.autotests.ecommshop.smoke
             LandingAsserts landingAsserts = new LandingAsserts();
             LandingActions landingActions = new LandingActions();
             ProductDetailsAsserts productDetailsAsserts = new ProductDetailsAsserts();
-
+             
             // When
             NavigationUtils.GoToEcommerceShopHomePage();
             // Then
