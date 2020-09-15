@@ -13,7 +13,6 @@ namespace mentoring_taf.taf.asserts
             AssertThat
                 .Element(homePage.GetHeaderFragment().GetMyProfileButton())
                 .IsVisible()
-                .And()
                 .TextContainsIgnoringCase(firstName);
         }
         

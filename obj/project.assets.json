@@ -4479,19 +4479,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\volod\\.nuget\\packages\\": {}
+    "C:\\Users\\Volodymyr_Lohvyniuk\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\volod\\source\\repos\\mentoring_taf\\mentoring_taf.csproj",
+      "projectUniqueName": "C:\\Users\\Volodymyr_Lohvyniuk\\Desktop\\dotnet\\mentoring_taf\\mentoring_taf.csproj",
       "projectName": "mentoring_taf",
-      "projectPath": "C:\\Users\\volod\\source\\repos\\mentoring_taf\\mentoring_taf.csproj",
-      "packagesPath": "C:\\Users\\volod\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\volod\\source\\repos\\mentoring_taf\\obj\\",
+      "projectPath": "C:\\Users\\Volodymyr_Lohvyniuk\\Desktop\\dotnet\\mentoring_taf\\mentoring_taf.csproj",
+      "packagesPath": "C:\\Users\\Volodymyr_Lohvyniuk\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Volodymyr_Lohvyniuk\\Desktop\\dotnet\\mentoring_taf\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\volod\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Volodymyr_Lohvyniuk\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -4571,7 +4571,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

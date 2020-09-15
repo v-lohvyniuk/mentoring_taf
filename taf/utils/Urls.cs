@@ -8,6 +8,7 @@ namespace mentoring_taf.taf.utils
     class Urls
     {
         public static readonly Urls FACEBOOK_LOGIN_URL = new Urls("https://www.facebook.com/");
+        public static readonly Urls AUTOMATIONPRACTICE_HOME_URL = new Urls("http://automationpractice.com/");
 
         private readonly String url;
 

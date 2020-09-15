@@ -22,5 +22,10 @@ namespace mentoring_taf.taf.utils
         {
             NavigateToUrl(Urls.FACEBOOK_LOGIN_URL);
         }
+
+        public static void GoToEcommerceShopHomePage()
+        {
+            NavigateToUrl(Urls.AUTOMATIONPRACTICE_HOME_URL);
+        }
     }
 }

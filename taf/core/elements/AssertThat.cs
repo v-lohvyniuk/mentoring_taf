@@ -11,5 +11,10 @@ namespace mentoring_taf.taf.core.elements
         {
             return new ElementAsserter(element);
         }
+
+        public static ElementCollectionAsserter Elements(IList<IWebElement> elements)
+        {
+            return new ElementCollectionAsserter(elements);
+        }
     }
 }
