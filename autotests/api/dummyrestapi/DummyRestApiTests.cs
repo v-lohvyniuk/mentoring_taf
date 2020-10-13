@@ -1,27 +1,51 @@
-﻿using mentoring_taf.taf.core.api.client;
+﻿using mentoring_taf.taf.core.api.asserter;
+using mentoring_taf.taf.core.api.client;
+using mentoring_taf.taf.sut.dto;
 using NUnit.Allure.Core;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using RestSharp;
+using System.Net;
 
 namespace mentoring_taf.autotests.api.dummyrestapi
 {
     [AllureNUnit]
     [TestFixture]
-    [Parallelizable(ParallelScope.All)]
+    [Parallelizable(ParallelScope.Fixtures)]
     class DummyRestApiTests
     {
+
+        private ApiClient client = ApiClient.GetInstance();
+
         [Test]
         public void GetDummyApiAllEmployees_PositiveTestCase()
         {
-            RequestData requestData = new RequestData()
-                .WithUrl("/employee")
-                .WithQueryParam("all", "true");
+            var getEmployeesRs = client.GET(client
+                .Request()
+                .Path("/employees")
+                .QueryParam("all", "true")
+                .Build());
 
-            ApiClient.GetInstance()
-                .WithRequestData(requestData)
-                .DoGet();
+            AssertThat.Response(getEmployeesRs)
+                .StatusIs(HttpStatusCode.OK);
+        }
+        
+        [Test]
+        public void CreateNewEmployee_PositiveTestCase()
+        {
+            var newEmployee = CreateEmployeeDTO.Generated();
+
+            var createEmployeeRs = client.POST(
+                client.Request()
+                .Path("/create")
+                .QueryParam("sync", "true")
+                .Body(newEmployee)
+                .Build()
+                );
+
+            AssertThat.Response(createEmployeeRs)
+                .StatusIs(HttpStatusCode.OK)
+                .And()
+                .BodyContains("Successfully! Record has been added.");
         }
     }
 }

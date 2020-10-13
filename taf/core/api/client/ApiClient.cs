@@ -1,21 +1,17 @@
-﻿using RestSharp;
+﻿using mentoring_taf.taf.core.logging;
+using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Net.Http.Headers;
-using System.Text;
 
 namespace mentoring_taf.taf.core.api.client
 {
     public class ApiClient
     {
-        private static readonly string DEFAULT_BASE_URL = "http://dummy.restapiexample.com/";
+        private static readonly string DEFAULT_BASE_URL = "http://dummy.restapiexample.com/api/v1";
 
         private static ApiClient apiClient;
         
         private string baseUrl;
         private RestClient restClient;
-        private RequestData requestData;
 
         private ApiClient(string baseUrl, RestClient client)
         {
@@ -34,20 +30,41 @@ namespace mentoring_taf.taf.core.api.client
             return apiClient;
         }
 
-        public ApiClient WithRequestData(RequestData requestData)
+        public RequestBuilder Request()
         {
-            apiClient.requestData = requestData;
-            return this;
+            return new RequestBuilder();
         }
 
-        public void DoGet()
+        public IRestResponse GET(IRestRequest request)
         {
-            RestRequest request = new RestRequest(this.requestData.Url, Method.GET);
-            foreach(var item in this.requestData.QueryParams)
-            {
-                request.AddQueryParameter(item.Key, item.Value);
-            }
-            this.restClient.Execute(request);
+            return DoExecuteRequest(Method.GET, request);
+        }
+        
+        public IRestResponse POST(IRestRequest request)
+        {
+            return DoExecuteRequest(Method.POST, request);
+        }
+        
+        public IRestResponse PUT(IRestRequest request)
+        {
+            return DoExecuteRequest(Method.PUT, request);
+        }
+        
+        public IRestResponse DELETE(IRestRequest request)
+        {
+            return DoExecuteRequest(Method.DELETE, request);
+        }
+        
+        private IRestResponse DoExecuteRequest(Method method, IRestRequest request)
+        {
+            request.Method = method;
+
+            RequestResponseLogger.LogRequest(this.restClient, request);
+            
+            IRestResponse response = this.restClient.Execute(request);
+            
+            RequestResponseLogger.LogResponse(response);
+            return response;
         }
     }
 }
