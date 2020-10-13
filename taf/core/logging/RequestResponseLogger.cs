@@ -13,11 +13,7 @@ namespace mentoring_taf.taf.core.logging
         {
             Log.Info("----------------------REQUEST----------------------");
             Log.Info(client.BuildUri(request).AbsoluteUri);
-            if (request.Parameters.Exists(x => x.Type.Equals(ParameterType.RequestBody)))
-            {
-                var body = request.Parameters.Find(x => x.Type.Equals(ParameterType.RequestBody)).Value;
-                Log.Info("Body: " + new JsonSerializer().Serialize(body));
-            }
+            LogRequestBody(request);
             Log.Info("--------------------END REQUEST----------------------");
 
         }
@@ -28,6 +24,20 @@ namespace mentoring_taf.taf.core.logging
             Log.Info("Body: " + response.Content);
             Log.Info("--------------------END RESPONSE----------------------");
 
+        }
+
+        private static void LogRequestBody(IRestRequest request)
+        {
+            if (request.Parameters.Exists(IsParamRequestBody()))
+            {
+                var body = request.Parameters.Find(IsParamRequestBody()).Value;
+                Log.Info("Body: " + new JsonSerializer().Serialize(body));
+            }
+        }
+
+        private static Predicate<Parameter> IsParamRequestBody()
+        {
+            return x => x.Type.Equals(ParameterType.RequestBody);
         }
     }
 }

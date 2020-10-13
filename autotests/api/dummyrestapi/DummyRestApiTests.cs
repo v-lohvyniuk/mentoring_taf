@@ -37,7 +37,6 @@ namespace mentoring_taf.autotests.api.dummyrestapi
             var createEmployeeRs = client.POST(
                 client.Request()
                 .Path("/create")
-                .QueryParam("sync", "true")
                 .Body(newEmployee)
                 .Build()
                 );
