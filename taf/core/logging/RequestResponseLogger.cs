@@ -9,10 +9,10 @@ namespace mentoring_taf.taf.core.logging
     public class RequestResponseLogger
     {
 
-        public static void LogRequest(RestClient client, IRestRequest request)
+        public static void LogRequest(RestClient client, IRestRequest request, Method method)
         {
             Log.Info("----------------------REQUEST----------------------");
-            Log.Info(client.BuildUri(request).AbsoluteUri);
+            Log.Info(method + ": " + client.BuildUri(request).AbsoluteUri);
             LogRequestBody(request);
             Log.Info("--------------------END REQUEST----------------------");
 

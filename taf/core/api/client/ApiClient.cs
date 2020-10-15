@@ -59,7 +59,7 @@ namespace mentoring_taf.taf.core.api.client
         {
             request.Method = method;
 
-            RequestResponseLogger.LogRequest(this.restClient, request);
+            RequestResponseLogger.LogRequest(this.restClient, request, method);
             
             IRestResponse response = this.restClient.Execute(request);
             
